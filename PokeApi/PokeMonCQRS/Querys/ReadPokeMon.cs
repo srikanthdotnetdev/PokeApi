@@ -1,6 +1,6 @@
 namespace PokeApi;
 
-public partial class Query
+public partial class ReadPokeMon
 {
     public PokeMon GetPokeMon() =>
         new PokeMon

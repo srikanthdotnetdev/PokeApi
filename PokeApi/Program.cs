@@ -1,3 +1,4 @@
+using MediatR;
 using PokeApi;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,7 +11,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services
     .AddGraphQLServer()
-    .AddQueryType<Query>();
+    .AddQueryType<ReadPokeMon>();
+builder.Services.AddMediatR(typeof(PokeMon).Assembly);
 
 var app = builder.Build();
 

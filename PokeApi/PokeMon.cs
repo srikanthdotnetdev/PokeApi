@@ -11,7 +11,7 @@ namespace PokeApi
          public bool IsLegendary { get; set; } = false;
     }
 
-    public partial class Query
+    public partial class ReadPokeMon
     {
     }
 

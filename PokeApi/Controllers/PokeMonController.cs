@@ -1,3 +1,4 @@
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace PokeApi.Controllers
@@ -6,38 +7,19 @@ namespace PokeApi.Controllers
     [Route("[controller]")]
     public class PokeMonController : ControllerBase
     {
-        private static readonly string[] Summaries =
-        {
-            "Freezing",
-            "Bracing",
-            "Chilly",
-            "Cool",
-            "Mild",
-            "Warm",
-            "Balmy",
-            "Hot",
-            "Sweltering",
-            "Scorching"
-        };
-
         private readonly ILogger<PokeMonController> _logger;
+        private readonly IMediator _mediator;
 
-        public PokeMonController(ILogger<PokeMonController> logger)
+        public PokeMonController(ILogger<PokeMonController> logger,IMediator mediator)
         {
             _logger = logger;
+            _mediator = mediator;
         }
 
         [HttpGet(Name = "GetPokeMon")]
-        public PokeMon Get()
+        public async Task<PokeMon> Get()
         {
-            return new PokeMon
-            {
-                Name = "PokeMonName",
-                Description = "SomeDescription",
-                Habitat = "SomeHabitat",
-                IsLegendary = false
-
-            };
+            return await _mediator.Send(new PokeMonRestQueries());
 
         }
     }
