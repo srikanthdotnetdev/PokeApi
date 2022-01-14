@@ -8,6 +8,14 @@ namespace PokeApi
 
          public string? Habitat { get; set; }
 
-         public bool IsLegendary { get; set; }
+         public bool IsLegendary { get; set; } = false;
     }
+
+    public partial class Query
+    {
+    }
+
+
+     
+
 }
