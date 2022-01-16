@@ -1,6 +1,7 @@
 using System.Reflection;
 using Moq;
 using PokeApi;
+using PokeApi.DDD;
 using Xunit;
 
 namespace PokeApiTests
@@ -19,7 +20,12 @@ namespace PokeApiTests
             Assert.False(pokemonMock.IsLegendary);
 
             //Act
-            pokemonMock = Mock.Of<PokeMon>(p => p.Name == "SomeName" && p.Description=="SomeDescription" && p.Habitat=="SomeHabitat"&& p.IsLegendary==true);
+             pokemonMock = Mock.Of<PokeMon>(p =>
+                 p.Name == "SomeName" && 
+                 p.Description == "SomeDescription" &&
+                 p.Habitat == "SomeHabitat" &&
+                 p.IsLegendary == true
+                 );
 
             //Assert
             Assert.Equal("SomeName", pokemonMock.Name);

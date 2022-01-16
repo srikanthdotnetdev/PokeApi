@@ -1,5 +1,10 @@
 using MediatR;
 using PokeApi;
+using PokeApi.DDD;
+using PokeApi.Repository;
+
+using Path = System.IO.Path;
+using ReadPokeMon = PokeApi.DDD.ReadPokeMon;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,16 +17,19 @@ builder.Services.AddSwaggerGen();
 builder.Services
     .AddGraphQLServer()
     .AddQueryType<ReadPokeMon>();
+
+
 builder.Services.AddMediatR(typeof(PokeMon).Assembly);
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
+
     app.UseSwagger();
     app.UseSwaggerUI();
-}
+
+
+app.UseExceptionHandler("/error");
 
 app.UseHttpsRedirection();
 
@@ -36,3 +44,4 @@ app
     });
 
 app.Run();
+
