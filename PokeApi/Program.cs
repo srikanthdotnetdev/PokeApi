@@ -1,6 +1,7 @@
 using MediatR;
 using PokeApi;
 using PokeApi.DDD;
+using PokeApi.GraphQL;
 using PokeApi.Repository;
 
 using Path = System.IO.Path;
@@ -16,7 +17,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services
     .AddGraphQLServer()
-    .AddQueryType<ReadPokeMon>();
+    .AddQueryType<GraphQlQueries.Query>();
 
 
 builder.Services.AddMediatR(typeof(PokeMon).Assembly);

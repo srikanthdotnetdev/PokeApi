@@ -10,14 +10,14 @@ public partial class ReadPokeMon : IReadPokeMon
     
     private PokeMon? builtPokeMon;
   
-    private readonly IUrlData _urlData;
-    private readonly string _shakespearUrl;
+     
+    private readonly string _shakespeareUrl;
     private readonly string _yodaUrl;
 
     public ReadPokeMon(bool translationFlag, IUrlData Data )
     {
 
-      _shakespearUrl=  Data.ShakespearUrl;
+      _shakespeareUrl=  Data.ShakespeareUrl;
       _yodaUrl = Data.YodaUrl;
 
     }
@@ -32,7 +32,7 @@ public partial class ReadPokeMon : IReadPokeMon
             }
             else
             {
-                url = _shakespearUrl;
+                url = _shakespeareUrl;
             }
 
             response = GetFunTranslation(url, pokemonFromWebApi.Description);

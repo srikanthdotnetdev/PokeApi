@@ -2,7 +2,7 @@ namespace PokeApi.DDD;
 
 public interface IUrlData
 {
-      string ShakespearUrl { get; }
+      string ShakespeareUrl { get; }
       string YodaUrl { get; }
 
 }
