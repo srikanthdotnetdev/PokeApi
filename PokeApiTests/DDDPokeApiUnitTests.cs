@@ -1,4 +1,5 @@
 using System.Reflection;
+using System.Threading.Tasks;
 using Moq;
 using PokeApi;
 using PokeApi.DDD;
@@ -6,9 +7,10 @@ using Xunit;
 
 namespace PokeApiTests
 {
-    public class PokeApiTUnitTests
+    public class DDDPokeApiUnitTests
     {
         [Fact]
+        [Trait("Category", "Unit")]
         public void Is_PokeApi_Returns_Valid_PokeMon()
         {
             
@@ -34,5 +36,24 @@ namespace PokeApiTests
             Assert.True(pokemonMock.IsLegendary);
 
         }
+        [Fact]
+        [Trait("Category", "Unit")]
+        public async Task Is_ReadPokeMon_Returns_PokeMon()
+        {
+            
+            IReadPokeMon readInstance = new MockReadPokeMon();
+             
+            var instancePokeMon= await readInstance.GetPokeMonAsync("Pikachu",false);
+            Assert.Equal("DummyName",instancePokeMon.Name);
+            Assert.Equal("DummyDescription", instancePokeMon.Description);
+            Assert.Equal("DummyHabitat", instancePokeMon.Habitat);
+            Assert.False(instancePokeMon.IsLegendary);
+
+        }
+
+
+        
+
+
     }
 }

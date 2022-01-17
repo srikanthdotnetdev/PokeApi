@@ -39,11 +39,11 @@ namespace PokeApi.Controllers
 
         }
        
-        [HttpPost(Name = "CreatePokeMon")]
+        [HttpPost(Name = "ListOfPokeMons")]
         
-        public async Task<PokeMon> CreatePokeMon([FromBodyAttribute]PokeMon PokeMonModel)
+        public async Task<List<PokeMon>> ListOfPokeMons([FromBodyAttribute]List<string> pokemonList)
         {
-            return await _mediator.Send(new CreatePokeMonCommand(PokeMonModel));
+            return await _mediator.Send(new CreatePokeMonCommand(pokemonList));
 
         }
          

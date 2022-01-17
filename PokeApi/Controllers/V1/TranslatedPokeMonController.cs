@@ -42,6 +42,14 @@ namespace PokeApi.Controllers.V1
 
         }
 
+        [HttpPost(Name = "ListOfTranslatedPokeMons")]
+
+        public async Task<List<PokeMon>> ListOfTranslatedPokeMons([FromBodyAttribute] List<string> pokemonList)
+        {
+            return await _mediator.Send(new CreatePokeMonTranslatedCommand(pokemonList));
+
+        }
+
 
     }
 }

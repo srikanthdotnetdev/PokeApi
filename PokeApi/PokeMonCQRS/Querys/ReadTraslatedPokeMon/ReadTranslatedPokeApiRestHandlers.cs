@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using PokeApi.DDD;
+using PokeApi.GraphQL;
 using PokeApi.Repository;
 
 namespace PokeApi
@@ -15,8 +16,8 @@ namespace PokeApi
             
              
            var readRequest = new ReadPokeMon(true,new UrlData());
-           var beforeTranslation =  await readRequest.GetPokeMonAsync(request.PokeMonName,true);
-           return beforeTranslation;
+           return await readRequest.GetPokeMonAsync(request.PokeMonName,true);
+          
 
         }
     }

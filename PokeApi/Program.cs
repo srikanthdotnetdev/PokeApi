@@ -18,6 +18,7 @@ builder.Services.AddSwaggerGen();
 builder.Services
     .AddGraphQLServer()
     .AddQueryType<GraphQlQueries.Query>();
+     
 
 
 builder.Services.AddMediatR(typeof(PokeMon).Assembly);

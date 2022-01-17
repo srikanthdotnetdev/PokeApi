@@ -1,11 +1,15 @@
+using System;
+using System.Linq;
 using Newtonsoft.Json;
 using PokeApi.Repository;
 using PokeApiNet;
 using RestSharp;
+using System.Threading.Tasks;
+using PokeApiTests;
 
 namespace PokeApi.DDD;
 
-public partial class ReadPokeMon : IReadPokeMon
+public partial class FakeReadPokeMon : IReadPokeMon
 {
     
     private PokeMon? builtPokeMon;
@@ -13,13 +17,12 @@ public partial class ReadPokeMon : IReadPokeMon
      
     private readonly string _shakespeareUrl;
     private readonly string _yodaUrl;
-    
-    public ReadPokeMon(bool translationFlag, IUrlData Data)
+
+    public FakeReadPokeMon(bool translationFlag, IUrlData Data )
     {
 
       _shakespeareUrl=  Data.ShakespeareUrl;
       _yodaUrl = Data.YodaUrl;
-      
 
     }
     public async Task<PokeMon> GetPokeMonAsync(string pokemonName,bool translationFlag)
@@ -56,19 +59,17 @@ public partial class ReadPokeMon : IReadPokeMon
                 }
                 else
                 {
-                    
                     return new PokeMon { Name = pokemonName, Description = "CheckFailed", Habitat = "CheckFailed" };
                 }
             }
             catch (Exception ex)
             {
-                
                 return new PokeMon { Name = pokemonName, Description = ex.Message, Habitat = "DoesNotExist" };
             }
         }
 
         #region  LogicForCheckingExistingDataInstance
-        using var repo = new RepositoryAccessService(new DbContext(translationFlag));
+        using var repo = new RepositoryAccessService(new MockDbContext(translationFlag));
         
         var instancePokeMon = repo.PokeMonRepository.GetByPokeMonName(pokemonName);
         #endregion
@@ -91,14 +92,8 @@ public partial class ReadPokeMon : IReadPokeMon
 
             if (translationFlag)
             {
-                try
-                {
-                    TranslatePokeMonFromWebApi(pokemonFromWebApi, out var url, out var response);
-                }
-                catch(Exception ex)
-                {
-                   
-                }
+                TranslatePokeMonFromWebApi(pokemonFromWebApi, out var url, out var response);
+
 
                 return repo.PokeMonRepository.Create(pokemonFromWebApi);
             }
@@ -113,23 +108,7 @@ public partial class ReadPokeMon : IReadPokeMon
         #endregion
     }
 
-    public async Task<List<PokeMon>> GetListOfPokemons(List<string> pokemonNameList, bool translationflag)
-    {
-        var resultList = new List<PokeMon>();
-        foreach (var pokemonName in pokemonNameList)
-            resultList.Add(await GetPokeMonAsync(pokemonName, translationflag));
-        return resultList;
 
-    }
-
-    public async Task<List<PokeMon>> GetListOfPokemonsGraphQl(List<(string,bool)> nameAndFlagList)
-    {
-        var resultList = new List<PokeMon>();
-        foreach (var pokemonName in nameAndFlagList)
-            resultList.Add(await GetPokeMonAsync(pokemonName.Item1, pokemonName.Item2));
-        return resultList;
-
-    }
     public async Task<RestResponse> GetFunTranslation(string url,string queryParam)
     {
         var client = new RestClient();
@@ -176,6 +155,5 @@ public partial class ReadPokeMon : IReadPokeMon
 
     }
 
-    
     
 }

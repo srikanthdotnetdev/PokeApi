@@ -37,7 +37,7 @@ namespace PokeApiTests
 
         public bool DeleteAllPokeMons()
         {
-            throw new NotImplementedException();
+            return true;
         }
     }
 }

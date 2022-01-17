@@ -1,20 +1,19 @@
 ﻿using MediatR;
 using PokeApi.DDD;
+using PokeApi.GraphQL;
+using PokeApi.Repository;
 
 namespace PokeApi.PokeMonCQRS.Commands
 {
-    public class CreatePokeMonHandler:IRequestHandler<CreatePokeMonCommand, PokeMon>
+    public class CreatePokeMonHandler:IRequestHandler<CreatePokeMonCommand, List<PokeMon>>
     {
-        public Task<PokeMon> Handle(CreatePokeMonCommand request, CancellationToken cancellationToken)
+        public async Task<List<PokeMon>> Handle(CreatePokeMonCommand request, CancellationToken cancellationToken)
         {
-            return Task.FromResult(new PokeMon
-            {
-                
-                Name = request.PokeMonModel.Name,
-                Description = request.PokeMonModel.Description,
-                Habitat = request.PokeMonModel.Habitat,
-                IsLegendary = request.PokeMonModel.IsLegendary
-            });
+            var readInstance = new ReadPokeMon(false, new UrlData());
+            return await readInstance.GetListOfPokemons(request.pokemonList, false);
         }
+
+       
+    
     }
 }

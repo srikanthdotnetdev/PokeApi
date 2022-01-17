@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using PokeApi.DDD;
+using PokeApi.GraphQL;
 using PokeApi.Repository;
 
 namespace PokeApi
