@@ -1,4 +1,5 @@
 # PokeApi
+ 
 
 # About the App
 
@@ -66,5 +67,91 @@ incase if we are not able to translate then we use standard description.
 ##### delete request is useful to delete the complete data in the local database. Each endpoint is having one delete action which delete only data of a particular collection.The post request takes a list of pokemon names as part body and returns them as response.
 
 ##### The graphQL end point solves the problem of under or overfetching of data.
+
+# Running the application
+
+## Requirements to run applicaiton
+
+### Install the docker
+
+#### Download the source code (zip folder), navigate to the .csproj folder and run the application run the following command
+
+` docker-compose -f docker-compose.prod.yaml up`
+
+### like shown below
+
+![image](https://user-images.githubusercontent.com/41447370/149829231-5bf24064-f3b0-4053-9f2b-8980bf2cdacd.png)
+
+![image](https://user-images.githubusercontent.com/41447370/149829355-139895e3-da5a-4928-a283-8b492db5955a.png)
+
+### Browse to the following url
+
+### http://localhost:5020/swagger/index.html
+
+### The swagger page for api will be loaded
+
+![image](https://user-images.githubusercontent.com/41447370/149829569-8c786428-f211-4523-ba0d-0ec0487d0b90.png)
+
+### Lets try get service (Non translated pokemon)
+
+### click on get service and click on tryit out button to give pokemon name as parameter and click on execute button
+
+![image](https://user-images.githubusercontent.com/41447370/149829993-d3ab29e0-0b2a-4c2b-aab4-2e409af4e3e5.png)
+
+![image](https://user-images.githubusercontent.com/41447370/149829921-9e7c4eb0-6bc4-4555-8377-1f830933c45f.png)
+
+### time to try translated pokemon
+![image](https://user-images.githubusercontent.com/41447370/149830345-666860b4-3f15-4ee3-9a8c-6506e7f57a2f.png)
+
+### The delete operation deletes the data on particular collections. we only need to clear data if we want to.
+
+### post operation : post operation allows us to get number of pokemons in a a single call using list of pokemon names as body of the request.
+
+![image](https://user-images.githubusercontent.com/41447370/149830824-36029fc6-008b-4bde-b9be-02671c2ca8ea.png)
+
+![image](https://user-images.githubusercontent.com/41447370/149830859-98dd6cdb-4dc4-44e4-a0bb-faad96e05d80.png)
+
+### GraphQL end point: Graph solves the problem of under fetching and overfetching of rest api parameters.
+
+####  for graphql end point navigate to the following URL.
+#### http://localhost:5020/graphql/
+
+#### The application uses bananacakepop which a opensource graphql client from chillicreams hotchocolate.
+
+![image](https://user-images.githubusercontent.com/41447370/149831240-94ef900c-fac1-453d-a7df-49131d271862.png)
+#### Click create document to start querying the graphql end point.
+
+![image](https://user-images.githubusercontent.com/41447370/149831524-a3ea3a48-becd-40e3-9d50-ff941891258c.png)
+
+#### On the Query window write the following Query.
+
+#### querying non translated pokemon by ging translationflag: false
+` query{
+pokeMon (pokemonName: "pikachu",translationFlag: false)
+{
+   name
+   description
+   
+}
+  
+}` 
+![image](https://user-images.githubusercontent.com/41447370/149832267-c9ef8b73-bca3-484f-9b0a-38de65f8f73c.png)
+
+### Now try the query with translationflag: true for translated pokemon.
+`query{
+pokeMon (pokemonName: "pikachu",translationFlag: true)
+{
+   name
+   description
+   
+}
+}`
+  
+
+![image](https://user-images.githubusercontent.com/41447370/149832176-465a0957-69ac-406e-907d-6cba55cbeffe.png)
+
+
+## Happy coding
+
 
 
