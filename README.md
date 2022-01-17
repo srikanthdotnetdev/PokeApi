@@ -16,7 +16,7 @@
 
 ##### The second type of data that our application retrieves is translations from fun translations. which only can serve 60 API calls.
 
-##### Just avoid fetching data several times from poke API and fun translations, it's better to maintain our own local database. The database needs to be very lightweight and NoSQL(since we are not doing transactions here.)  so I chose one lightweight database (lite db). 
+##### Just to avoid fetching data several times from poke API and fun translations, it's better to maintain our own local database. The database needs to be very lightweight and NoSQL(since we are not doing transactions here.)  so I chose one lightweight database (lite db). 
 
 ##### so when ever a call is made to fetch the pokemon, the application look for the requested pokemon in the database. if it is not found in the database then it fetches from pokeapi.co. and write the pokemon into the database. So when the next time we requested the same database the application delivers it from the local database.
 
